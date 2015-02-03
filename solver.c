@@ -29,17 +29,57 @@ int main()
   return 0;
 }
 
-void solve(long * answer)
-{
-  *answer = 0;
+
+//return number of divisors
+int divisors(long number){
+  int numb = 0;
+  int i;
+  double sqrter = sqrt(number);
+  
+  for(i = 1; i<= sqrter; i++){
+    if(number % i == 0){
+      numb += 2;
+    }
+  }
+
+  // Correct perfect squares
+  if (sqrter * sqrter == number) {
+    numb--;
+  }
+
+  return numb;
+  
 }
 
+long nextTriangular(long old, int numb){
+  return old+numb;
+}
+
+void solve(long * answer)
+{
+  long prev = 0;
+  int i;
+  for(i=1; i>0; i++){
+    prev = nextTriangular(prev, i);
+    //printf("%d: %lu", i, prev);
+    //printf(" divisors %d \n", divisors(prev));
+    if(500<divisors(prev)){
+      printf("%d: %lu", i, prev);
+      printf(" divisors %d \n", divisors(prev));
+      *answer = prev;
+      break;
+    }
+  }
+      
+  
+  // *answer = divisors();
+}
 
 /* in case I want a program to take input */
 void read(int * x)
 {
   printf( "Write input (number) here: " );
-  scanf( "%d", x );
+  //scanf( "%d", x );
 }
 
 /* Template output for answers */
