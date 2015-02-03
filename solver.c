@@ -10,32 +10,37 @@ void read(int * x);
 void output(int problem, long answer);
 void solve(long * answer); // main solve clauses
 
+int isPrime(long n){
+  if (n <= 1) return FALSE;
+  unsigned long i;
+  for (i=2; i*i<=n; i++) {
+    if (n % i == 0) return FALSE;
+  }
+  return TRUE;
+}
+
+
 int main()
 {
   long x = 0;
 
   solve(&x);
-  output(9,x);
+  output(10,x);
   return 0;
 }
 
 void solve(long * answer)
 {
-  // a<b<c, a+b+c=1000 a^2+b^2=c^2
-
-  long a,b,c;
-  for(a=1,b=1,c=1;c<1000;c++){
-    for(a=1,b=1;b<1000;b++){
-      for(a=1;a<1000;a++){
-        if(a*a+b*b == c*c && a+b+c==1000){
-          printf("Found a:%lu b:%lu c:%lu\n", a, b, c);
-          *answer = a*b*c;
-        }
-      }
+  long max = 2000000,i,sum=0;
+  for(i=1; i<max; i++){
+    if(isPrime(i)){
+      sum+=i;
     }
   }
-  // *answer = 0;
+
+  *answer = sum;
 }
+
 
 /* in case I want a program to take input */
 void read(int * x)
