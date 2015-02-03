@@ -14,7 +14,7 @@ int main()
   //read(&x);
   //x = isPalindrome(x);
   solve(&x);
-  output(5,x);
+  output(6,x);
   return 0;
 }
 
