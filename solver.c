@@ -1,47 +1,50 @@
 #include <stdio.h> /* IO stuff */
+#include <stdint.h> /* Integers */
+#include <math.h> /* sqrt and stuff */
+//#define int int64_t
 
 void read(int * x);
-void output(int problem, int answer);
-void solve(int * answer); // main solve clauses
+void output(int problem, int64_t answer);
+void solve(int64_t * answer); // main solve clauses
 
 int main()
 {
-  int x;
+  int64_t x;
 
   //read(&x);
   solve(&x);
-  output(2,x);
+  output(3,x);
   return 0;
 }
 
-void solve(int * answer)
+void solve(int64_t * answer)
 {
-  int multiples [1000];
-  int a;
-  for(a=0; a<1000; a++){
-    multiples[a] = 0;
-  }
-  
-  int i,j,vec;
-  for(i=1,vec=0; i<4000000;){
-    int prev = i;
-    i = i+j;
-    if(0 == i%2){
-      if(vec >= 1000){
-        printf( "Error, too big vector\n");
-        return;
-      }
-      multiples[vec] = i;
-      vec++;
-    }
-    j = prev;
-  }
+  int64_t n = 600851475143, i;
 
-  int sum;
-  for(i=0, sum=0; i<1000; i++){
-    sum+=multiples[i];
+  //Case, devides by 2
+  while(0 == n%2)
+    {
+      printf("%d, ", 2);
+      n = n/2;
+    }
+
+  for (i = 3; i <= sqrt(n); i = i+2)
+    {
+
+      while(n%i == 0)
+        {
+          printf("%lu, ", i);
+          n = n/i;
+        }
+      
+    }
+
+  // If last number is prime
+  if(n > 2){
+    printf("%lu\n", n);
   }
-  *answer = sum; // write answer
+    
+  
 }
 
 /* in case I want a program to take input */
@@ -52,7 +55,7 @@ void read(int * x)
 }
 
 /* Template output for answers */
-void output(int problem, int answer)
+void output(int problem, int64_t answer)
 {
-  printf( "The solution for problem %d is %d\n" , problem, answer );
+  printf( "The solution for problem %d is %lu \n" , problem, answer );
 }
