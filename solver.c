@@ -10,22 +10,31 @@ int main()
 
   //read(&x);
   solve(&x);
-  output(1,x);
+  output(2,x);
   return 0;
 }
 
 void solve(int * answer)
 {
   int multiples [1000];
-
+  int a;
+  for(a=0; a<1000; a++){
+    multiples[a] = 0;
+  }
   
-  int i,j;
-  for(i=0,j=0; i<1000; i++){
-    multiples[i] = 0; // zero init array
-    if(0 == i%3 | 0 == i%5){
-      multiples[j] = i;
-      j++;
+  int i,j,vec;
+  for(i=1,vec=0; i<4000000;){
+    int prev = i;
+    i = i+j;
+    if(0 == i%2){
+      if(vec >= 1000){
+        printf( "Error, too big vector\n");
+        return;
+      }
+      multiples[vec] = i;
+      vec++;
     }
+    j = prev;
   }
 
   int sum;
