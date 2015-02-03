@@ -1,18 +1,24 @@
 #include <stdio.h> /* IO stuff */
 
-void read();
+void read(int * x);
 void output(int problem, int answer);
 
 
 int main()
 {
-  output(0,0);
+  int x;
+
+  read(&x);
+  
+  output(0,x);
   return 0;
 }
 
 /* in case I want a program to take input */
-void read()
+void read(int * x)
 {
+  printf( "Write input (number) here: " );
+  scanf( "%d", x );
 }
 
 /* Template output for answers */
