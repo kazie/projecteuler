@@ -1,15 +1,15 @@
 #include <stdio.h> /* IO stuff */
 #include <stdint.h> /* Integers */
-//#include <math.h> /* sqrt and stuff */
+#include <math.h> /* sqrt and stuff */
 //#define int int64_t
 
 void read(int * x);
-void output(int problem, int answer);
-void solve(int * answer); // main solve clauses
+void output(int problem, long answer);
+void solve(long * answer); // main solve clauses
 
 int main()
 {
-  int x = 0;
+  long x = 0;
 
   //read(&x);
   //x = isPalindrome(x);
@@ -18,28 +18,31 @@ int main()
   return 0;
 }
 
-void solve(int * answer)
+void solve(long * answer)
 {
-  int max=20, i=0;
+  long i;
+  long sumH = 0;
+  long sumPow;
+  for (i=0; i<=100; i++){
+    sumH+=i; // sum 100
+  }
+  sumH = sumH*sumH;
 
-  while( 1 ) {
-    i=i+1;
-    if(divisBy(i,max)){
-      *answer = i;
-      break;
+  //printf( "SumH: %ld\n", sumH);
+  
+  for (i=0; i<=100; i++){
+    sumPow+=i*i; // sum 100
+    if (sumPow < 0){
+      printf( "OVERFLOW\n" );
     }
   }
+  //printf("sumPOW: %ld\n", sumPow );
+  
+  *answer = sumH - sumPow;
+  
 }
 
-int divisBy(int a, int max){
-  int i=1;
-  for(i; i<max; i++){
-    if(0 != a%i){
-      return 0;
-    }
-  }
-  return 1;
-}
+
 
 /* in case I want a program to take input */
 void read(int * x)
@@ -49,7 +52,7 @@ void read(int * x)
 }
 
 /* Template output for answers */
-void output(int problem, int answer)
+void output(int problem, long answer)
 {
-  printf( "The solution for problem %d is %d \n" , problem, answer );
+  printf( "The solution for problem %d is %lu \n" , problem, answer );
 }
