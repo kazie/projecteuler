@@ -10,7 +10,7 @@ int main()
 
   //read(&x);
   solve(&x);
-  output(0,x);
+  output(1,x);
   return 0;
 }
 
