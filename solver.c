@@ -35,40 +35,17 @@ int main()
   long x = 0;
 
   solve(&x);
-  output(14,x);
+  output(15,x);
   return 0;
 }
 
-// Length: Start with 1.
-long getNext(long length, long number){
-  while(number != 1){
-    if(0 == number%2){
-      //even
-      length++;
-      number= number/2;
-    }else{
-      //odd
-      length++;
-      number=3*number+1;
-    }
-  }
-  return length; 
-}
 
 void solve(long * answer)
 {
-  long maxn=0, maxl=0,i;
-  for(i = 1; i<=1000000; i++)
-    {
-      long tmp = getNext(1,i);
-      //printf( "Tested:%lu Got:%lu\n", i,tmp);
-      if(tmp>maxl){
-        maxl = tmp;
-        maxn = i;
-      }
-    }
-  
-  *answer = maxn;
+  // This was just simple combinatorics.
+  // on a AxA grid, the answer with these
+  // rules is (A+A choose A).
+  *answer = 137846528820;
 }
 
 /* in case I want a program to take input */
