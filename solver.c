@@ -44,7 +44,7 @@ void solve(long * answer)
 {
   // This was just simple combinatorics.
   // on a AxA grid, the answer with these
-  // rules is (A+A choose A).
+  // rules is (A+A choose A). 
   *answer = 137846528820;
 }
 
