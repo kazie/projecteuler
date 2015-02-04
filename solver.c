@@ -35,17 +35,29 @@ int main()
   long x = 0;
 
   solve(&x);
-  output(15,x);
+  output(16,x);
   return 0;
 }
 
 
 void solve(long * answer)
 {
-  // This was just simple combinatorics.
-  // on a AxA grid, the answer with these
-  // rules is (A+A choose A). 
-  *answer = 137846528820;
+  mpz_t x;
+  mpz_init(x);
+  mpz_ui_pow_ui(x, 2UL, 1000UL);
+  gmp_printf("%Zd \n", x);
+  char* mybuffer;
+  mybuffer = mpz_get_str(NULL, /*base*/10, x);
+
+  int i;
+  long sum=0;
+  printf("string: %lu\n", strlen(mybuffer));
+  for(i=0; i< strlen(mybuffer); i++){
+    sum += ctoi(mybuffer[i]);
+  }
+
+  *answer=sum;
+  
 }
 
 /* in case I want a program to take input */
