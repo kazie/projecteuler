@@ -3,6 +3,7 @@
 //#include <math.h> /* sqrt and stuff */
 #include <string.h>
 #include <gmp.h>
+#include <stdlib.h> /* Malloc */
 
 #define TRUE 1
 #define FALSE 0
@@ -38,29 +39,63 @@ int max(int a, int b){
 int main()
 {
   long x = 0;
-
+  
   solve(&x);
-  output(18,x);
+  output(21,x);
   return 0;
 }
 
-
-void solve(long * answer)
-{
-
+/**
+  Bignumb STUFF
   mpz_t x;
   mpz_init(x);
   mpz_fac_ui(x, 100UL);
   char* buffer;
-  buffer = mpz_get_str(NULL, /*base*/10, x);
+  buffer = mpz_get_str(NULL, 10, x);
+**/
 
-  int i, sum=0;
-  for(i=0; i<strlen(buffer);i++){
-    sum += ctoi(buffer[i]);
+void solve(long * answer){
+  
+  int max=10000;
+  char *dividers = malloc(max * max * sizeof(char));
+  long *sumdividers = malloc(max * sizeof(long));
+  long intsums=0;
+  
+  int i,j;
+  
+  for(i=0; i<max; i++){
+    for(j=1; j<max; j++){
+      if(i%j==0 && i!=j){
+        dividers[i+j*max] = 1;
+      } else{
+        dividers[i+j*max] = 0;
+      }
+    }
   }
   
-  *answer = sum;
-
+  
+  for(i=0; i<max; i++){
+    sumdividers[i]=0;
+    for(j=1; j<max; j++){
+      if(dividers[i+j*max]==1){
+        sumdividers[i] += j;
+      } 
+    }
+  }
+  
+  
+  for(i=0; i<max; i++){
+    if(sumdividers[i]<max){
+      if(i == sumdividers[sumdividers[i]] && sumdividers[i] != sumdividers[sumdividers[i]]   ){ 
+        //        printf("found %lu and %lu at i:%d\n", sumdividers[i],  sumdividers[sumdividers[i]], i);
+        intsums += sumdividers[i];
+        //intsums += sumdividers[sumdividers[i]];
+      }
+    }
+  }
+  
+  *answer = intsums;
+  
 }
 
 /* in case I want a program to take input */
