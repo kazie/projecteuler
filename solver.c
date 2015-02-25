@@ -41,7 +41,7 @@ int main()
   long x = 0;
   
   solve(&x);
-  output(25,x);
+  output(26,x);
   return 0;
 }
 
@@ -55,28 +55,27 @@ int main()
 **/
 
 void solve(long * answer){
+
+  int n, i, len, maxlen;
+  maxlen = 0;
+  for( n=2 ; n < 1000 ; n++ )
+    {
+      int rest = 1;
+      int r0;
+      for( i=0 ; i<n ; i++ )
+        rest = (rest*10)%n;
+      r0 = rest;
+      len = 0;
+      do { rest = (rest*10)%n; len++; }
+      while( rest!=r0 );
+      if( len>maxlen )
+        {
+          maxlen = len;
+        }
+    }
   
-  int digits=1000;
-
-  mpz_t prev;
-  mpz_t curr;
-  mpz_init(prev);
-  mpz_init(curr);
-  mpz_set_ui(prev, 1UL);
-  mpz_set_ui(curr, 1UL);
-
-  long count = 2;
-  while(strlen(mpz_get_str(NULL, 10, curr)) < digits){
-    mpz_add(curr, curr, prev);
-    mpz_sub(prev, curr, prev);
-    count++;
-  }
-
-  // char* buffer;
-  //buffer = mpz_get_str(NULL, 10, curr);
-  //printf("Howdy Ho: %s\n", buffer);
-  
-  *answer = count;
+          
+  *answer = maxlen;
   
 }
 
