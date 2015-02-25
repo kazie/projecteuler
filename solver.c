@@ -41,7 +41,7 @@ int main()
   long x = 0;
   
   solve(&x);
-  output(21,x);
+  output(25,x);
   return 0;
 }
 
@@ -56,45 +56,27 @@ int main()
 
 void solve(long * answer){
   
-  int max=10000;
-  char *dividers = malloc(max * max * sizeof(char));
-  long *sumdividers = malloc(max * sizeof(long));
-  long intsums=0;
-  
-  int i,j;
-  
-  for(i=0; i<max; i++){
-    for(j=1; j<max; j++){
-      if(i%j==0 && i!=j){
-        dividers[i+j*max] = 1;
-      } else{
-        dividers[i+j*max] = 0;
-      }
-    }
+  int digits=1000;
+
+  mpz_t prev;
+  mpz_t curr;
+  mpz_init(prev);
+  mpz_init(curr);
+  mpz_set_ui(prev, 1UL);
+  mpz_set_ui(curr, 1UL);
+
+  long count = 2;
+  while(strlen(mpz_get_str(NULL, 10, curr)) < digits){
+    mpz_add(curr, curr, prev);
+    mpz_sub(prev, curr, prev);
+    count++;
   }
+
+  // char* buffer;
+  //buffer = mpz_get_str(NULL, 10, curr);
+  //printf("Howdy Ho: %s\n", buffer);
   
-  
-  for(i=0; i<max; i++){
-    sumdividers[i]=0;
-    for(j=1; j<max; j++){
-      if(dividers[i+j*max]==1){
-        sumdividers[i] += j;
-      } 
-    }
-  }
-  
-  
-  for(i=0; i<max; i++){
-    if(sumdividers[i]<max){
-      if(i == sumdividers[sumdividers[i]] && sumdividers[i] != sumdividers[sumdividers[i]]   ){ 
-        //        printf("found %lu and %lu at i:%d\n", sumdividers[i],  sumdividers[sumdividers[i]], i);
-        intsums += sumdividers[i];
-        //intsums += sumdividers[sumdividers[i]];
-      }
-    }
-  }
-  
-  *answer = intsums;
+  *answer = count;
   
 }
 
