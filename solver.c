@@ -41,7 +41,7 @@ int main()
   long x = 0;
   
   solve(&x);
-  output(25,x);
+  output(48,x);
   return 0;
 }
 
@@ -52,31 +52,36 @@ int main()
   mpz_fac_ui(x, 100UL);
   char* buffer;
   buffer = mpz_get_str(NULL, 10, x);
+  mpz_pow_ui(tmp,i,i);
+  mpz_init_set_si(base, i);
+  atol = ascii to long
 **/
 
 void solve(long * answer){
+
+  mpz_t sum;
+  mpz_t tmp;
+
+  mpz_init(sum);
+  mpz_init(tmp);
   
-  int digits=1000;
-
-  mpz_t prev;
-  mpz_t curr;
-  mpz_init(prev);
-  mpz_init(curr);
-  mpz_set_ui(prev, 1UL);
-  mpz_set_ui(curr, 1UL);
-
-  long count = 2;
-  while(strlen(mpz_get_str(NULL, 10, curr)) < digits){
-    mpz_add(curr, curr, prev);
-    mpz_sub(prev, curr, prev);
-    count++;
+  int max = 1000;
+  int i;
+  for(i=1;i<=max;i++){
+    mpz_t base;
+    mpz_init_set_si(base, i);
+    mpz_pow_ui(tmp,base,i);
+    mpz_add(sum, sum, tmp);
   }
 
-  // char* buffer;
-  //buffer = mpz_get_str(NULL, 10, curr);
-  //printf("Howdy Ho: %s\n", buffer);
+  char* buffer;
+
+  mpz_mod_ui(sum, sum, 10000000000);
   
-  *answer = count;
+  buffer = mpz_get_str(NULL, 10, sum);
+  //printf("%s was the string\n", buffer);
+  
+  *answer = atol(buffer);
   
 }
 
