@@ -41,7 +41,11 @@ int main()
   long x = 0;
   
   solve(&x);
+<<<<<<< HEAD
   output(48,x);
+=======
+  output(28,x);
+>>>>>>> 41f9260897c4c18680d851f45a6ab6f70984738f
   return 0;
 }
 
@@ -58,6 +62,7 @@ int main()
 **/
 
 void solve(long * answer){
+<<<<<<< HEAD
 
   mpz_t sum;
   mpz_t tmp;
@@ -82,6 +87,44 @@ void solve(long * answer){
   //printf("%s was the string\n", buffer);
   
   *answer = atol(buffer);
+=======
+
+  unsigned long sum=0;
+  int num = 1001;
+  int size = num*num;
+  
+  char vector[size];
+
+  // 0 vector;
+  int i;
+  for(i=0; i<size; i++)
+    vector[i] = 0;
+
+  // Populate vector
+  
+  vector[0] = 1; // Init 1
+
+  int j=2;
+  i=0;
+  while(i<size-1){          // -1 since 0;
+    vector[i+j] = 1;        // l2: 8+4 =12, l3: 24+6= 30,
+    vector[i+j*2] = 1;      // l2: 8+8 =16, l3: 24+12=36
+    vector[i+j*3] = 1;      // l2: 8+12=20, l3: 24+18=..
+    vector[i+j*4] = 1;      // l2: 8+16=24, l3: 24+24=.. OK
+    i=i+j*4; // l1: 0+2*4 = 8, l2: 8+16=24, 
+    j=j+2;   // l1: 2+2=4,     l2: 4+2 = 6, 
+  }
+  
+  // Sum vector
+  for(i=0; i<size; i++){
+    if(vector[i]){
+      //printf("found %d\n", i+1);
+      sum += i+1;
+    }
+  }
+          
+  *answer = sum;
+>>>>>>> 41f9260897c4c18680d851f45a6ab6f70984738f
   
 }
 
